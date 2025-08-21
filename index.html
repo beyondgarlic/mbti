@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <!--반응형 페이지 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>의성 MBTI 테스트</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <!-- 상단 메뉴 컨테이너 -->
+    <div class="top-menu">
+        <!-- 메인 화면 링크 -->
+        <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link-home">
+            <img src="images/home.png" alt="메인 화면으로 이동">
+        </a>
+        <!-- 쇼핑몰 링크 -->
+        <a href="https://esmall.cyso.co.kr/" class="menu-link-mall">
+            <img src="images/shoppingmall.png" alt="쇼핑몰로 이동">
+        </a>
+    </div>
+
     <div id="main-page" class="page">
         <h1>의성 특산품 MBTI</h1>
         <p>나의 MBTI를 통해 의성의 특산품 찾기!</p>
@@ -28,20 +42,20 @@
     </div>
 
     <div id="result-page" class="page hidden">
-     <h2 id="product-name"></h2> 
-     <img id="product-img" src="" alt="추천 캐릭터 이미지" />
-      <p id="mbti-name"></p>
-        <p id="mbti-desc"></p> 
-  
-        <div id="product-desc" class="hashtags"></div> 
-  
-    <div class="link-container">
-    <a id="product-link" href="#" target="_blank">특산품 보러가기</a>
-</div>
-  
-  <button id="restart-btn">다시하기</button>
+        <h2 id="product-name"></h2>
+        <img id="product-img" src="" alt="추천 캐릭터 이미지" />
+        <p id="mbti-name"></p>
+        <p id="mbti-desc"></p>
+
+        <div id="product-desc" class="hashtags"></div>
+
+        <!-- ✅ 쇼핑몰 카드 3개 영역 -->
+        <div id="product-list" class="product-list"></div>
+
+        <button id="restart-btn">다시하기</button>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

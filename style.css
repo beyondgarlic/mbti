@@ -24,7 +24,8 @@
       display: none;
   }
 
-  h1, h2 {
+  h1,
+  h2 {
       color: #4a90e2;
   }
 
@@ -68,8 +69,10 @@
   }
 
   #product-img {
-      display: block;       /* 블록 요소로 변경 */
-      margin: 20px auto;    /* 위아래 20px, 좌우 자동 → 가운데 정렬 */
+      display: block;
+      /* 블록 요소로 변경 */
+      margin: 20px auto;
+      /* 위아래 20px, 좌우 자동 → 가운데 정렬 */
       width: 250px;
       height: 250px;
       border-radius: 50%;
@@ -92,6 +95,7 @@
           opacity: 0;
           transform: translateY(20px);
       }
+
       to {
           opacity: 1;
           transform: translateY(0);
@@ -99,76 +103,171 @@
   }
 
   #result-page h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #4a90e2;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #4a90e2;
   }
 
   #result-page img {
-    display: block;      
-    margin: 10px auto;    
-    width: 250px;
-    height: 350px;
-    border-radius: 10%;
-    object-fit: cover;
+      display: block;
+      margin: 10px auto;
+      width: 250px;
+      height: 350px;
+      border-radius: 10%;
+      object-fit: cover;
   }
 
   #mbti-desc {
-    margin: 20px 0;
-    font-size: 1.1rem;
-    line-height: 1.6;
+      margin: 20px 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
   }
 
   .hashtags {
-    margin: 15px 0;
-    font-size: 1rem;
-    color: #555;
+      margin: 15px 0;
+      font-size: 1rem;
+      color: #555;
   }
 
   .hashtags::before {
-    display: block;
+      display: block;
   }
 
   .hashtags span {
-    margin-right: 15px;
+      margin-right: 15px;
   }
 
   .link-container {
-    margin-top: 20px;
+      margin-top: 20px;
   }
 
   .link-container a {
-    display: inline-block;
-    background-color: #4a90e2;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: 0.3s;
+      display: inline-block;
+      background-color: #4a90e2;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
   }
 
   .link-container a:hover {
-    background-color: #357bd9;
+      background-color: #357bd9;
   }
 
   #progress-container {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    height: 20px;
-    margin: 10px 0;
-    overflow: hidden;
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      height: 20px;
+      margin: 10px 0;
+      overflow: hidden;
+  }
+
+  #progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: #357bd9;
+      /* 초록색 진행 바 */
+      transition: width 0.3s ease;
+  }
+
+  #progress-text {
+      text-align: right;
+      font-size: 14px;
+      margin: 5px 0;
+  }
+
+  .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      /* 여러 줄 가능하도록 */
+      gap: 25px;
+      margin-top: 10px;
+      justify-content: center;
+      /* 좌우 균등 배치 */
+  }
+
+  .product-card {
+      flex: 0 1 calc(40%);
+      /* 한 줄에 2개, gap 고려 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      text-decoration: none;
+      color: inherit;
+      background-color: #fafafa;
+      transition: transform 0.2s, box-shadow 0.3s;
+  }
+
+  .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .product-card img {
+      width: 100px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+      background-color: #fff;
+      margin-bottom: 5px;
+  }
+
+  .product-info {
+      text-align: center;
+      /* 가운데 정렬 */
+  }
+
+  .product-info h3 {
+      font-size: 1rem;
+  }
+
+  .product-info p {
+      font-size: 0.85rem;
+  }
+
+
+  .home-link {
+      position: fixed;
+      top: 10px;
+      /* 화면 위쪽에서 10px */
+      left: 30px;
+      /* 화면 왼쪽에서 10px */
+      display: inline-block;
+  }
+
+  /* 이미지 크기 조절 */
+  .home-link img {
+      width: 120px;
+      /* 원하는 가로 크기 */
+      height: auto;
+      /* 세로 비율 유지 */
+      cursor: pointer;
+      /* 마우스 올리면 클릭 느낌 */
+  }
+  .top-menu {
+    position: fixed;
+    top: 10px;          /* 화면 위쪽에서 10px */
+    left: 25px;         /* 화면 왼쪽에서 20px 여백 */
+    display: flex;      /* 가로로 일렬 배치 */
+    gap: 20px;          /* 메뉴 사이 간격 */
+    z-index: 1000;
 }
 
-#progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: #357bd9; /* 초록색 진행 바 */
-    transition: width 0.3s ease;
+/* 각 링크 스타일 */
+.menu-link-home img {
+    width: 60px;       /* 이미지 크기 조절 */
+    height: auto;       /* 세로 비율 유지 */
+    cursor: pointer;    /* 클릭 느낌 */
+    margin-top: 3px;
 }
-
-#progress-text {
-    text-align: right;
-    font-size: 14px;
-    margin: 5px 0;
+.menu-link-mall img {
+    width: 80px;       /* 이미지 크기 조절 */
+   
+    height: auto;       /* 세로 비율 유지 */
+    cursor: pointer;    /* 클릭 느낌 */
 }
