@@ -150,3 +150,25 @@
   .link-container a:hover {
     background-color: #357bd9;
   }
+
+  #progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 20px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #357bd9; /* 초록색 진행 바 */
+    transition: width 0.3s ease;
+}
+
+#progress-text {
+    text-align: right;
+    font-size: 14px;
+    margin: 5px 0;
+}
