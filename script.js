@@ -19,8 +19,8 @@ const productDescElem = document.getElementById('product-desc');
 // --- 2. 데이터 정의 ---
 const questions = [
     // E/I 질문
-    { type: 'E/I', question: '오픈톡 초대 알림 떴을 때 너의 리액션은?', options: ['A. "게임 시작~!" 바로 톡 폭주한 인싸 모드, B. "읽씹 좀 해야지..." 조용히 관망'] },
-    { type: 'E/I', question: '새로운 사람들을 만났을 때 당신의 행동은?', options: ['A. 먼저 다가가서 말을 건다., B. 다른 사람이 다가올 때까지 기다린다.'] },
+    { type: 'E/I', question: '오픈톡 초대 알림 떴을 때 너의 리액션은?', options: ['A. "게임 시작~!" 바로 톡 폭주한 인싸 모드', 'B. "읽씹 좀 해야지..." 조용히 관망'] },
+    { type: 'E/I', question: '새로운 사람들을 만났을 때 당신의 행동은?', options: ['A. 먼저 다가가서 말을 건다.', 'B. 다른 사람이 다가올 때까지 기다린다.'] },
     { type: 'E/I', question: '단체사진 촬영 땐 어떻게?', options: ['A. "꼭 센터! 인생샷 각!" 포즈 연습 끝판왕', 'B. "슬쩍 구석에 숨어있기 쵝오" 자연미 뿜뿜'] },
 
     // S/N 질문
@@ -36,7 +36,7 @@ const questions = [
     // J/P 질문
     { type: 'J/P', question: 'qq여행짐 싸는 D-Day', options: ['A. 당일 아침 "필요한 건 현지에서 사자!" 즉흥파', 'B. "필수템 체크리스트" 미리 완벽 준비'] },
     { type: 'J/P', question: 'qq프로젝트 마감 앞두고', options: ['A. 데드라인 직전, 몰아치기 고수', 'B. 미리미리 일찍 시작하는 알찬 전략가'] },
-    { type: 'J/P', question: 'qq약속 잡는 스타일은?', options: ['A. "시간 장소? 당일 아침 잡는 게 쩌는 거 아니야?" 즉흥파"', 'B. "캘린더 동기화 완료, 완벽한 일정 조율!" 계획파'] }
+    { type: 'J/P', question: 'qq약속 잡는 스타일은?', options: ['A. "시간 장소? 당일 아침 잡는 게 쩌는 거 아니야?" 즉흥파', 'B. "캘린더 동기화 완료, 완벽한 일정 조율!" 계획파'] }
 ];
 
 const results = {
