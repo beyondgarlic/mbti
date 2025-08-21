@@ -255,19 +255,11 @@
     left: 25px;         /* 화면 왼쪽에서 20px 여백 */
     display: flex;      /* 가로로 일렬 배치 */
     gap: 20px;          /* 메뉴 사이 간격 */
+    height: auto;       /* 세로 비율 유지 */
+    cursor: pointer;    /* 클릭 느낌 */
     z-index: 1000;
 }
 
-/* 각 링크 스타일 */
-.menu-link-home img {
-    width: 60px;       /* 이미지 크기 조절 */
-    height: auto;       /* 세로 비율 유지 */
-    cursor: pointer;    /* 클릭 느낌 */
+.menu-link-home img {   
     margin-top: 3px;
-}
-.menu-link-mall img {
-    width: 80px;       /* 이미지 크기 조절 */
-   
-    height: auto;       /* 세로 비율 유지 */
-    cursor: pointer;    /* 클릭 느낌 */
 }
