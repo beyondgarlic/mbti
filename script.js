@@ -42,7 +42,7 @@ const questions = [
 const results = {
     'ENTJ': {
         mbtiDesc: '강인하고 카리스마 있는 리더. 겉은 단단하고 속은 깊어 조직의 맛을 책임지는 존재.',
-        product: { name: '마늘 장군 "갈릭킹"'', image: 'images/ISTJ.png', desc: '의성 마늘처럼 묵묵히 제 역할을 다하며, 음식의 맛을 꽉 잡아주는 든든함이 당신과 닮았네요!' }
+        product: { name: '마늘 장군 "갈릭킹"', image: 'images/ISTJ.png', desc: '의성 마늘처럼 묵묵히 제 역할을 다하며, 음식의 맛을 꽉 잡아주는 든든함이 당신과 닮았네요!' }
     },
     'ISFJ': {
         mbtiDesc: 'ISFJ 설명',
