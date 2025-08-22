@@ -294,7 +294,7 @@ const results = {
         relatedProducts: [
             { title: "[가을빛고운의성장마실] 사과고추장 1kg", price: "20,000원", image: 'images/pepper_product.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1599402597' },
             { title: "[가을빛고운의성장마실] 사과+마늘고추장 각500g 총1kg 셋트 가로형", price: "20,000원", image: 'images/pepper_product2.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1599403775' },
-            { title: "[빛고은] 2024년산 맛깔진 고춧가루 1kg / 화건고추 / HACCP ", price: "20,800원", image: 'images/pepper_prodcut3.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1731295486' },
+            { title: "[빛고은] 2024년산 맛깔진 고춧가루 1kg / 화건고추 / HACCP ", price: "20,800원", image: 'images/pepper_product3.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1731295486' },
             { title: "[의성마늘농사꾼] 2024년 국내산 건고추, 고춧가루 1근(600g)", price: "16,000원", image: 'images/pepper_product4.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1723698601' }
         ]
     }

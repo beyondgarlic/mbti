@@ -8,6 +8,7 @@
       min-height: 100vh;
       margin: 0;
       text-align: center;
+       padding-top: 80px;
   }
 
   .page {
@@ -249,17 +250,31 @@
       cursor: pointer;
       /* 마우스 올리면 클릭 느낌 */
   }
-  .top-menu {
-    position: fixed;
-    top: 10px;          /* 화면 위쪽에서 10px */
-    left: 25px;         /* 화면 왼쪽에서 20px 여백 */
-    display: flex;      /* 가로로 일렬 배치 */
-    gap: 20px;          /* 메뉴 사이 간격 */
-    height: auto;       /* 세로 비율 유지 */
-    cursor: pointer;    /* 클릭 느낌 */
-    z-index: 1000;
-}
+ .top-menu {
+            position: fixed; /* 화면 상단에 고정 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-color: #f0f8f0a7;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
 
-.menu-link-home img {   
-    margin-top: 3px;
-}
+        /* 메뉴 링크 공통 */
+        .top-menu a {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            text-decoration: none;
+        }
+
+        /* 이미지 스타일 */
+        .top-menu img {
+            display: block;
+            height: 60px; /* 원하는 높이로 조정 가능 */
+            width: auto;
+        }
