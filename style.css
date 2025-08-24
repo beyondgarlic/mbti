@@ -1,51 +1,50 @@
-  body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f8f0;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      text-align: center;
-       padding-top: 80px;
-  }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f8f0;
+    color: #333;
+    margin: 0;
+    padding-top: 80px;
+    text-align: center;
+}
 
-  .page {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 90%;
-      animation: fadeIn 1s ease-in-out;
-  }
+/* 페이지 컨텐츠를 가운데 정렬 */
+.page {
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+    animation: fadeIn 1s ease-in-out;
+}
 
-  .hidden {
-      display: none;
-  }
+.hidden {
+    display: none;
+}
 
-  h1,
-  h2 {
-      color: #4a90e2;
-  }
+h1,
+h2 {
+    color: #4a90e2;
+}
 
-  button {
-      background-color: #4a90e2;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      margin-top: 20px;
-  }
+button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 20px;
+}
 
-  button:hover {
-      background-color: #357bd9;
-      transform: translateY(-2px);
-  }
+button:hover {
+    background-color: #357bd9;
+    transform: translateY(-2px);
+}
+
 
   .options-container {
       display: flex;
@@ -68,6 +67,17 @@
       background-color: #e9e9e9;
       transform: none;
   }
+
+  #disqus_thread {
+    margin: 50px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    max-width: 800px;
+    width: 90%;
+    text-align: left; /* 댓글은 왼쪽 정렬이 자연스러움 */
+}
 
   #product-img {
       display: block;
