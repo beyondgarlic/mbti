@@ -418,3 +418,6 @@ restartBtn.addEventListener('click', resetTest);
 document.addEventListener('DOMContentLoaded', () => {
     showPage(mainPage);
 });
+
+
+

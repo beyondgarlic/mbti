@@ -29,7 +29,7 @@
 
 
     <div class="top-menu">
-         <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link-home">
+        <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link-home">
             <img src="images/home.png" alt="메인 화면 이동">
             <span class="menu-text"></span>
         </a>
@@ -37,7 +37,10 @@
             <img src="images/shoppingmall.png" alt="쇼핑몰 이동">
             <span class="menu-text"></span>
         </a>
-       
+        <!-- <div class="top-menu-visitCount">
+            <h4>접속자 수 :</h4>
+            <p id="visitorCount">Loading...</p>
+        </div> -->
     </div>
 
 
@@ -74,8 +77,74 @@
         <button id="restart-btn">다시하기</button>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    <!-- <script type="module">
+        // Firebase SDK import
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+        // Firebase 설정 (본인 프로젝트 값으로 교체)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Firebase 초기화
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function countVisitor() {
+            const counterRef = doc(db, "analytics", "pageViews");
+
+            const snapshot = await getDoc(counterRef);
+            if (!snapshot.exists()) {
+                // 문서 없으면 생성
+                await setDoc(counterRef, { count: 0 });
+            }
+
+            // 방문자 수 +1 증가
+            await updateDoc(counterRef, { count: increment(1) });
+
+            // 최신 값 가져오기
+            const updatedSnap = await getDoc(counterRef);
+            document.getElementById("visitorCount").innerText =
+                "누적 접속자 수: " + updatedSnap.data().count;
+        }
+
+        // 페이지 로드 시 실행
+        countVisitor();
+    </script> -->
+
+
+    <script src="script.js"></script>
+
+
+    <p>
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://beyondgarlic-1.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+    </p>
+
+</body>
 
 </html>
