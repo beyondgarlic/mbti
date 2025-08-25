@@ -289,45 +289,44 @@ button:hover {
     width: auto;
 }
 
+.share-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.share-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
 .share-circle {
   display: flex;
-  justify-content: center;  /* 중앙 정렬 */
-  gap: 10px;               /* 아이콘 사이 간격 */
-  margin: 15px 0;
+  justify-content: center;   /* 아이콘 가운데 정렬 */
+  gap: 12px;                 /* 아이콘 사이 간격 */
 }
 
 .circle-btn {
-  display: inline-flex;       
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;                 
-  height: 40px;
-  border-radius: 50%;          /* 동그랗게 */
+  
   background-color: #fff;
   border: 1.5px solid #4a90e2;
   cursor: pointer;
   padding: 0;
+  line-height: 0;
   text-decoration: none;
-  box-sizing: border-box;
-  transition: transform 0.2s, background-color 0.3s;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .circle-btn img {
-  width: 40px;                 /* 아이콘 작게 */
-  height: 40px;
-  object-fit: contain;
+  
+  object-fit: contain; /* 비율 유지하면서 안 잘리게 */
   display: block;
 }
 
 .circle-btn:hover {
   background-color: #eef5ff;
-  transform: scale(1.2);
-}
-
-/* 공유 영역 위에 텍스트 */
-.share-title {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 10px;
-  font-size: 16px;
+  transform: scale(1.15);    /* 호버 시 확대 */
 }

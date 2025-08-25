@@ -454,8 +454,7 @@ if (facebook) {
     const { url } = getShareData();
     facebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 }
-
-
+   
 const kakaoBtn = document.getElementById('share-kakao');
 kakaoBtn?.addEventListener('click', () => {
     const { title, text, url } = getShareData();
