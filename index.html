@@ -2,13 +2,11 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <!--반응형 페이지 -->
+    <meta charset="UTF--8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>의성 특산품 MBTI 테스트</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
@@ -17,33 +15,19 @@
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NXBRT3Z5');</script>
-    <!-- End Google Tag Manager -->
-</head>
+    </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXBRT3Z5" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-
-
     <div class="top-menu">
         <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link">
             <img src="images/BeyondGarlic.png" alt="메인 로고, 홈페이지 이동">
         </a>
-        <!-- <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link-home">
-            <img src="images/home.png" alt="메인 화면 이동">
-        </a> -->
         <a href="https://esmall.cyso.co.kr/" class="menu-link">
             <img src="images/shoppingmall.png" alt="쇼핑몰 이동">
         </a>
 
-
-        <!-- <div class="top-menu-visitCount">
-            <h4>접속자 수 :</h4>
-            <p id="visitorCount">Loading...</p>
-        </div> -->
     </div>
 
 
@@ -77,7 +61,6 @@
         <div id="product-list" class="product-list"></div>
 
 
-        <!-- 공유하기 영역 -->
         <div class="share-container">
             <div class="share-title">친구에게 공유하기</div>
             <div class="share-circle">
@@ -102,8 +85,8 @@
         <div id="disqus_thread"></div>
         <script>
             /**
-            *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-            *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
             /*
             var disqus_config = function () {
             this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
@@ -123,46 +106,83 @@
 
     </div>
 
-    <!-- <script type="module">
-        // Firebase SDK import
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-        // Firebase 설정 (본인 프로젝트 값으로 교체)
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyAO6xW1_NUYZUOe1pAqEv2C9a6uZmDD8cg",
+            authDomain: "mbti-28340.firebaseapp.com",
+            projectId: "mbti-28340",
+            storageBucket: "mbti-28340.firebasestorage.app",
+            messagingSenderId: "989371039709",
+            appId: "1:989371039709:web:74ce719c718ad4a5ec8034",
+            measurementId: "G-LL9LSER5V1"
         };
 
-        // Firebase 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function countVisitor() {
-            const counterRef = doc(db, "analytics", "pageViews");
+        async function trackVisitors() {
+            // --- Firestore 문서 참조를 미리 정의 ---
+            const totalRef = doc(db, "analytics", "totalPageViews");
+            const uniqueRef = doc(db, "analytics", "uniquePageViews");
 
-            const snapshot = await getDoc(counterRef);
-            if (!snapshot.exists()) {
-                // 문서 없으면 생성
-                await setDoc(counterRef, { count: 0 });
+            // --- 1. 총 방문자 수(Page Views)는 항상 1 증가 ---
+            // 페이지가 로드될 때마다 실행됩니다.
+            try {
+                await updateDoc(totalRef, { count: increment(1) });
+            } catch (error) {
+                // 문서가 없다면 (첫 실행), 1로 생성합니다.
+                if (error.code === 'not-found') {
+                    await setDoc(totalRef, { count: 1 });
+                } else {
+                    console.error("Error updating total views:", error);
+                }
             }
 
-            // 방문자 수 +1 증가
-            await updateDoc(counterRef, { count: increment(1) });
+            // --- 2. 순 방문자 수(Unique Visitors)는 처음 방문 시에만 증가 ---
+            const hasVisited = localStorage.getItem('hasAlreadyVisited');
+            if (!hasVisited) {
+                localStorage.setItem('hasAlreadyVisited', 'true'); // 방문 도장 찍기
+                try {
+                    await updateDoc(uniqueRef, { count: increment(1) });
+                } catch (error) {
+                    // 문서가 없다면 (첫 순 방문자), 1로 생성합니다.
+                    if (error.code === 'not-found') {
+                        await setDoc(uniqueRef, { count: 1 });
+                    } else {
+                        console.error("Error updating unique views:", error);
+                    }
+                }
+            }
 
-            // 최신 값 가져오기
-            const updatedSnap = await getDoc(counterRef);
-            document.getElementById("visitorCount").innerText =
-                "누적 접속자 수: " + updatedSnap.data().count;
+            // --- 3. 두 데이터를 모두 가져와 화면에 표시 ---
+            try {
+                // Promise.all을 사용해 두 데이터를 동시에 요청
+                const [totalSnap, uniqueSnap] = await Promise.all([
+                    getDoc(totalRef),
+                    getDoc(uniqueRef)
+                ]);
+
+                const totalEl = document.getElementById("totalVisitorCount");
+                const uniqueEl = document.getElementById("uniqueVisitorCount");
+
+                if (totalEl && totalSnap.exists()) {
+                    totalEl.innerText = "총 방문: " + totalSnap.data().count;
+                }
+                if (uniqueEl && uniqueSnap.exists()) {
+                    uniqueEl.innerText = "순 방문: " + uniqueSnap.data().count;
+                }
+            } catch (error) {
+                console.error("Error displaying counts:", error);
+            }
         }
 
-        // 페이지 로드 시 실행
-        countVisitor();
-    </script> -->
+        // 페이지 로드 시 함수 실행
+        trackVisitors();
+    </script>
+
 
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
     <script>Kakao.init('9b771708b4454f04c4774684c6cfbe80');</script>
@@ -170,4 +190,6 @@
 
 </body>
 
+
 </html>
+
