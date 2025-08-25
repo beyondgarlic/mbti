@@ -124,51 +124,67 @@
 
     </div>
 
-    <!-- <script type="module">
-        // Firebase SDK import
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    <script type="module">
+    // Firebase SDK import
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    // Firestore SDK import (방문자 수 기록을 위해 추가)
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-        // Firebase 설정 (본인 프로젝트 값으로 교체)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+    // 복사하신 Firebase 설정 값입니다
+    const firebaseConfig = {
+        apiKey: "AIzaSyAO6xW1_NUYZUOe1pAqEv2C9a6uZmDD8cg",
+        authDomain: "mbti-28340.firebaseapp.com",
+        projectId: "mbti-28340",
+        storageBucket: "mbti-28340.firebasestorage.app",
+        messagingSenderId: "989371039709",
+        appId: "1:989371039709:web:74ce719c718ad4a5ec8034",
+        measurementId: "G-LL9LSER5V1"
+    };
 
-        // Firebase 초기화
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    // Firebase 초기화
+    const app = initializeApp(firebaseConfig);
+    // Firestore 초기화
+    const db = getFirestore(app);
 
-        async function countVisitor() {
-            const counterRef = doc(db, "analytics", "pageViews");
+    // 방문자 수를 세는 함수
+    async function countVisitor() {
+        const counterRef = doc(db, "analytics", "pageViews");
 
+        try {
             const snapshot = await getDoc(counterRef);
             if (!snapshot.exists()) {
-                // 문서 없으면 생성
-                await setDoc(counterRef, { count: 0 });
+                // 문서가 없으면 생성
+                await setDoc(counterRef, { count: 1 });
+            } else {
+                // 문서가 있으면 count 필드를 1 증가
+                await updateDoc(counterRef, { count: increment(1) });
             }
 
-            // 방문자 수 +1 증가
-            await updateDoc(counterRef, { count: increment(1) });
-
-            // 최신 값 가져오기
+            // 최신 값을 가져와서 화면에 표시
             const updatedSnap = await getDoc(counterRef);
-            document.getElementById("visitorCount").innerText =
-                "누적 접속자 수: " + updatedSnap.data().count;
+            const visitorCountElement = document.getElementById("visitorCount");
+            if (visitorCountElement) {
+                 // '누적 접속자 수' 텍스트를 포함하여 업데이트
+                visitorCountElement.innerText = "누적 접속자 수: " + updatedSnap.data().count;
+            }
+        } catch (error) {
+            console.error("Error counting visitor: ", error);
+            const visitorCountElement = document.getElementById("visitorCount");
+            if (visitorCountElement) {
+                visitorCountElement.innerText = "카운트 오류";
+            }
         }
+    }
 
-        // 페이지 로드 시 실행
-        countVisitor();
-    </script> -->
+    // 페이지가 로드될 때 함수 실행
+    countVisitor();
+</script>
 
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
     <script>Kakao.init('9b771708b4454f04c4774684c6cfbe80');</script> 
     <script src="script.js"></script>
 
 </body>
+
 
 </html>
