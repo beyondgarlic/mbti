@@ -181,11 +181,11 @@ const results = {
             desc: "#애플박사 #전략가 #완벽주의자",
             link: "#"
         },
-        relatedProducts: [ 
+        relatedProducts: [
             { title: "[의성토종마늘정보화마을] 2025년 햇사과 홍로 5kg(22-25과)", price: "33,600원", image: 'images/apple_product.png', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1724118757' },
             { title: "[의성토종마늘정보화마을] 2025년 햇사과 아리수 5kg(14-17과)", price: "41,600원", image: 'images/apple_product2.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1724115882' },
             { title: "[의성토종마늘정보화마을] 초록사과 아오리 5kg (22-26과)", price: "28,000원", image: 'images/apple_product3.png', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1754273930' },
-            { title: "[의성토종마늘정보화마을] 2025년 햇사과 아리수 10kg(36-42과)", price: "61,600원", image: 'images/apple_product4.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1724115649' } ]
+            { title: "[의성토종마늘정보화마을] 2025년 햇사과 아리수 10kg(36-42과)", price: "61,600원", image: 'images/apple_product4.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1724115649' }]
     },
     'INTP': {
         mbtiDesc: "호기심 많고 지적인 탐구자. 복잡한 맛의 조합을 분석하고 새로운 맛의 가능성을 제시한다.",
@@ -275,7 +275,7 @@ const results = {
             desc: '#애플듀오 #자유영혼 #예술감각',
             link: '#'
         },
-        relatedProducts: [    
+        relatedProducts: [
             { title: "[의성토종마늘정보화마을] 2025년 햇사과 홍로 5kg(22-25과)", price: "33,600원", image: 'images/apple_product.png', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1724118757' },
             { title: "[의성토종마늘정보화마을] 2025년 햇사과 아리수 5kg(14-17과)", price: "41,600원", image: 'images/apple_product2.jpg', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1724115882' },
             { title: "[의성토종마늘정보화마을] 초록사과 아오리 5kg (22-26과)", price: "28,000원", image: 'images/apple_product3.png', link: 'https://esmall.cyso.co.kr/shop/item.php?it_id=1754273930' },
@@ -390,6 +390,11 @@ function showResult() {
         productListElem.appendChild(a);
     });
 
+    // ✅ 공유용 URL에 mbti 쿼리 파라미터 반영
+    const url = new URL(window.location.href);
+    url.searchParams.set('mbti', mbti);
+    window.history.replaceState(null, '', url.toString());
+
     showPage(resultPage);
 }
 
@@ -420,4 +425,50 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// ===== 공유 기능 =====
+function getShareData() {
+    const title = document.getElementById('product-name')?.textContent || '의성 특산품 MBTI';
+    const text = document.getElementById('mbti-desc')?.textContent || '나의 MBTI로 의성 특산품을 추천받아보세요!';
+    const url = window.location.href;
+    return { title, text, url };
+}
 
+// 네이티브 공유
+document.getElementById('share-native')?.addEventListener('click', async () => {
+    const data = getShareData();
+    if (navigator.share) {
+        try { await navigator.share(data); } catch (e) { console.log('공유 취소', e); }
+    } else {
+        alert('브라우저에서 공유를 지원하지 않아요. 링크 복사를 이용해주세요.');
+    }
+});
+
+// 트위터 / 페이스북 링크 세팅
+const twitter = document.getElementById('share-twitter');
+if (twitter) {
+    const { text, url } = getShareData();
+    twitter.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+}
+const facebook = document.getElementById('share-facebook');
+if (facebook) {
+    const { url } = getShareData();
+    facebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+}
+
+
+const kakaoBtn = document.getElementById('share-kakao');
+kakaoBtn?.addEventListener('click', () => {
+    const { title, text, url } = getShareData();
+    Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: title,
+            description: text,
+            imageUrl: document.getElementById('product-img')?.src || 'https://your-default-image.png',
+            link: { mobileWebUrl: url, webUrl: url }
+        },
+        buttons: [
+            { title: '결과 보기', link: { mobileWebUrl: url, webUrl: url } }
+        ]
+    });
+});

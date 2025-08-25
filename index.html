@@ -29,14 +29,17 @@
 
 
     <div class="top-menu">
-        <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link-home">
-            <img src="images/home.png" alt="메인 화면 이동">
-            <span class="menu-text"></span>
+        <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link">
+            <img src="images/BeyondGarlic.png" alt="메인 로고, 홈페이지 이동">
         </a>
+        <!-- <a href="https://beyondgarlic.github.io/garlicintro/" class="menu-link-home">
+            <img src="images/home.png" alt="메인 화면 이동">
+        </a> -->
         <a href="https://esmall.cyso.co.kr/" class="menu-link">
             <img src="images/shoppingmall.png" alt="쇼핑몰 이동">
-            <span class="menu-text"></span>
         </a>
+
+
         <!-- <div class="top-menu-visitCount">
             <h4>접속자 수 :</h4>
             <p id="visitorCount">Loading...</p>
@@ -71,8 +74,27 @@
 
         <div id="product-desc" class="hashtags"></div>
 
-        <!-- ✅ 쇼핑몰 카드 3개 영역 -->
         <div id="product-list" class="product-list"></div>
+
+
+        <!-- 공유하기 영역 -->
+        <div class="share-container">
+            <div class="share-title">친구에게 공유하기</div>
+            <div class="share-circle">
+                <button id="share-native" class="circle-btn" title="공유하기">
+                    <img src="images/share_icon.png" alt="공유">
+                </button>
+                <a id="share-twitter" class="circle-btn" title="트위터" target="_blank">
+                    <img src="images/x_icon.png" alt="트위터">
+                </a>
+                <a id="share-facebook" class="circle-btn" title="페이스북" target="_blank">
+                    <img src="images/facebook_icon.png" alt="페이스북">
+                </a>
+                <button id="share-kakao" class="circle-btn" title="카카오톡">
+                    <img src="images/kakaotalk_icon.png" alt="카카오톡">
+                </button>
+            </div>
+        </div>
 
         <button id="restart-btn">다시하기</button>
 
@@ -95,7 +117,8 @@
                 (d.head || d.body).appendChild(s);
             })();
         </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered
+                by
                 Disqus.</a></noscript>
         </p>
 
@@ -142,7 +165,8 @@
         countVisitor();
     </script> -->
 
-
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
+    <script>Kakao.init('9b771708b4454f04c4774684c6cfbe80');</script> 
     <script src="script.js"></script>
 
 </body>
