@@ -1,344 +1,58 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>나를 닮은 맛은? 소울푸드 찾기 테스트</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>(function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-NXBRT3Z5');
-        </script>
-    </head>
-
-    <body class="bg-[#fdf7e4] text-gray-900 flex flex-col items-center justify-center min-h-screen overflow-x-hidden">
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXBRT3Z5" height="0" width="0"
-                style="display:none;visibility:hidden"></iframe></noscript>
-
-        <div id="main-page" class="page">
-            <!-- 헤더 -->
-            <header class="text-center mt-24">
-                <h2 class="text-lg md:text-xl font-semibold text-[#335433]">나를 닮은 맛은?</h2>
-                <h1 class="text-3xl md:text-4xl font-bold mt-2">소울푸드 찾기 테스트</h1>
-            </header>
-            
-            <!-- 설명 아이콘 영역 -->
-            <section class="flex flex-row items-stretch justify-center mt-10 w-full max-w-4xl px-6 text-center">
-                <!-- 시계 아이콘 -->
-                <div class="flex-1 min-w-[120px] flex flex-col items-center justify-center px-4">
-                    <img src="../res/img/icon-clock.png" alt="3분 아이콘" class="w-16 h-16 mb-3">
-                    <p class="text-xs font-medium leading-tight">
-                        <span class="block whitespace-nowrap">질문은 12개,</span>
-                        <span class="block">3분이면 완성!</span>
-                    </p>
-                </div>
-
-                <!-- 세로 구분선 -->
-                <div class="hidden md:block w-px bg-gray-300 self-stretch"></div>
-
-                <!-- 전구 아이콘 -->
-                <div class="flex-1 min-w-[120px] flex flex-col items-center justify-center px-4">
-                    <img src="../res/img/icon-lightbulb.png" alt="직감 아이콘" class="w-16 h-16 mb-3">
-                    <p class="text-xs font-medium leading-tight">
-                        <span class="block whitespace-nowrap">고민 말고</span>
-                        <span class="block">직감대로!</span>
-                    </p>
-                </div>
-
-                <!-- 세로 구분선 -->
-                <div class="hidden md:block w-px bg-gray-300 self-stretch"></div>
-
-                <!-- 선물상자 아이콘 -->
-                <div class="flex-1 min-w-[120px] flex flex-col items-center justify-center px-4">
-                    <img src="../res/img/icon-gift.png" alt="혜택 아이콘" class="w-16 h-16 mb-3">
-                    <p class="text-xs font-medium leading-tight">
-                        <span class="block whitespace-nowrap">테스트 후에는</span>
-                        <span class="block">특별한 혜택이!</span>
-                    </p>
-                </div>
-            </section>
-
-            <!-- 일러스트 -->
-            <section class="mt-12 flex justify-center">
-                <img src="../res/img/main-illustration.png" alt="소울푸드 캐릭터 모음" class="w-64 h-64 object-contain">
-            </section>
-
-            <!-- 시작 버튼 -->
-            <div class="mt-10 mb-16 flex justify-center">
-                <button id="start-btn"
-                    class="px-8 py-3 text-lg font-semibold text-white transition-colors duration-300"
-                    style="background-color: #000000;"
-                    onmouseover="this.style.backgroundColor='#335433'"
-                    onmouseout="this.style.backgroundColor='#000000'"
-                    onmousedown="this.style.backgroundColor='#335433'"
-                    onmouseup="this.style.backgroundColor='#335433'">
-                    테스트 시작하기 →
-                </button>
-            </div>
-            
-            <div id="visitor-stats" style="margin: 20px; text-align: center;">
-                <p id="totalVisitorCount">지금까지 0명이 테스트에 참가했습니다.</p>
-            </div>
-        </div>
-
-        <div id="test-page" class="page hidden w-full px-4 py-8 sm:px-6 sm:py-12">
-            <!-- 진행도 영역 (브라우저 상단 고정) -->
-            <div id="progress-container" class="w-full px-4 sm:px-6 mt-4">
-                <div class="max-w-3xl mx-auto">
-                    <!-- 숫자형 진행 -->
-                    <div class="flex items-center justify-center mb-3">
-                    <p id="progress-text" class="text-base font-semibold text-[#335433]">1/12</p>
-                    </div>
-                    <!-- 막대형 진행 -->
-                    <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="h-3 bg-[#335433] rounded-full transition-all duration-500 ease-out" style="width: 8.3%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 질문 -->
-            <h2 id="question" class="text-3xl sm:text-4xl md:text-4xl font-bold mb-14 leading-snug text-center mt-28">
-            이번 주말엔 쇼핑을 할 거예요. ㅇㅇㅇ님의 패션 취향은?
-            </h2>
-
-            <!-- 선택지 -->
-            <div class="options-container space-y-6 max-w-3xl mx-auto mb-16">
-            <button id="option-a"
-                    class="option-btn group relative w-full overflow-hidden rounded-full px-6 sm:px-8 py-6 sm:py-7 text-lg sm:text-xl md:text-2xl font-medium bg-gray-100 shadow-sm transition-colors focus:outline-none">
-                <span class="fill-layer absolute inset-0 w-0 h-full bg-[#335433] transition-all duration-500 ease-out group-hover:w-full"></span>
-                <span class="relative z-10 block">
-                    다른 사람은 쉽게 못 살 디자인! 나라면 소화 가능하다구!<br>
-                </span>
-            </button>
-
-            <button id="option-b"
-                    class="option-btn group relative w-full overflow-hidden rounded-full px-6 sm:px-8 py-6 sm:py-7 text-lg sm:text-xl md:text-2xl font-medium bg-gray-100 shadow-sm transition-colors focus:outline-none">
-                <span class="fill-layer absolute inset-0 w-0 h-full bg-[#335433] transition-all duration-500 ease-out group-hover:w-full"></span>
-                <span class="relative z-10 block">
-                    집에 있는 모든 옷과 어울릴 가성비 만점 데일리 아이템!<br>
-                </span>
-            </button>
-            </div>
-
-            <!-- 하단 일러스트 -->
-            <div class="flex justify-center">
-            <img id="question-illust" alt="문제 일러스트"
-                class="w-2/5 sm:w-1/5 h-auto object-contain">
-            </div>
-        </div>
-
-        <!-- ===== Result Page (Drop-in) ===== -->
-        <div id="result-page" class="max-w-5xl mx-auto px-6 pt-10 sm:pt-14 pb-0">
-
-            <!-- Category / Title / Hashtags -->
-            <div class="text-center">
-                <div class="text-xs tracking-[0.25em] text-[#335433]/70 font-semibold mb-6">BEYOND GARLIC</div>
-
-                <!-- MBTI Title -->
-                <h2 id="mbti-name" class="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-3">
-                <!-- JS에서 채워짐 -->
-                </h2>
-
-                <!-- Hashtags -->
-                <p id="product-desc" class="text-base sm:text-lg text-gray-500 mb-8">
-                <!-- JS에서 채워짐: #태그들 -->
-                </p>
-            </div>
-
-            <!-- Big Illustration -->
-            <div class="flex justify-center my-6 sm:my-10">
-                <img id="product-img" alt="추천 캐릭터 이미지"
-                    class="w-2/5 sm:w-1/3 md:w-1/4 lg:w-[19rem] h-auto object-contain rounded-xl drop-shadow" />
-            </div>
-
-            <!-- One-liner / Description Bullets -->
-            <div class="max-w-3xl mx-auto">
-                <p id="mbti-desc" class="text-base sm:text-lg text-gray-700 text-center leading-relaxed">
-                <!-- JS에서 채워짐 -->
-                </p>
-            </div>
-
-            <!-- Recommendation Section (Yellow) -->
-            <section class="mt-16 sm:mt-20 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen max-w-none bg-[#335433] px-6 sm:px-10 py-16 overflow-hidden">
-                <h4 class="text-2xl sm:text-3xl font-extrabold text-center mb-3 text-white">
-                    나와 딱 맞는 소울 푸드는
-                </h4>
-                <p class="text-center text-white/80 mb-10">
-                    나와 맞는 의성 특산품과 굿즈를 골라봤어요. 결과에 몰입하며 소소한 행복도 챙겨가요 :)
-                </p>
-
-
-                <!-- 상품 카드 그리드 (JS가 #product-list 안에 a.product-card들을 넣음) -->
-                <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-10">
-                    <!-- showResult()가 주입 -->
-                </div>
-
-                <!-- CTA Buttons -->
-                <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="https://esmall.cyso.co.kr/shop/event.php?ev_id=1754006087" class="inline-flex items-center justify-center px-7 py-3 rounded-none bg-white text-[#335433] font-semibold shadow hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/70 transition">
-                        혜택받으러 가기
-                    </a>
-                </div>
-            </section>
-
-            <!-- Share -->
-            <section class="mt-16 sm:mt-20 text-center">
-                <h5 class="text-2xl sm:text-3xl font-extrabold mb-6 text-[#335433]">
-                    친구에게 테스트 공유하기
-                </h5>
-                <div class="flex items-center justify-center gap-4">
-                <button id="share-native"
-                        class="w-12 h-12 rounded-full bg-black text-white grid place-items-center hover:bg-[#335433] transition"
-                        title="공유하기">↗</button>
-                <a id="share-twitter" target="_blank"
-                    class="w-12 h-12 rounded-full bg-black text-white grid place-items-center hover:bg-[#335433] transition"
-                    title="트위터">t</a>
-                <a id="share-facebook" target="_blank"
-                    class="w-12 h-12 rounded-full bg-black text-white grid place-items-center hover:bg-[#335433] transition"
-                    title="페이스북">f</a>
-                <button id="share-kakao"
-                        class="w-12 h-12 rounded-full bg-black text-white grid place-items-center hover:bg-[#335433] transition"
-                        title="카카오톡">k</button>
-                </div>
-                <div class="mt-16">
-                    <button id="restart-btn"
-                        class="inline-flex items-center justify-center px-7 py-3 border border-[#335433] text-[#335433] font-semibold hover:bg-[#335433] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#335433]/30 transition">
-                        테스트 다시하기
-                    </button>
-                </div>
-            </section>
-
-            <!-- Disqus: 풀블리드 화이트 배경 -->
-            <section class="mt-16 sm:mt-20 relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen max-w-none bg-white overflow-hidden">
-                <div class="max-w-5xl mx-auto px-6 pt-10 pb-[50px]">
-                    <div id="disqus_thread"></div>
-                </div>
-            </section>
-
-            <script>
-                /**
-                * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-                /*
-                var disqus_config = function () {
-                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                };
-                */
-                (function () { // DON'T EDIT BELOW THIS LINE
-                    var d = document, s = d.createElement('script');
-                    s.src = 'https://beyondgarlic-1.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-                    Disqus.</a></noscript>
-        </div>
-
-        <footer class="mt-auto bg-[#335433] w-full">
-            <div class="max-w-5xl mx-auto px-6 py-8 text-center text-white/90">
-                <p class="text-sm sm:text-base">
-                    © <span id="currentYear"></span> Beyond Garlic. All rights reserved.
-                </p>
-                <p class="mt-1 text-xs sm:text-sm text-white/80">
-                    이 홈페이지는 US Code의 지원을 받아 만든 페이지입니다.
-                </p>
-            </div>
-        </footer>
-
-        <script type="module">
-            // 현재 연도 자동 표기
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-            import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-            const firebaseConfig = {
-                apiKey: "AIzaSyAO6xW1_NUYZUOe1pAqEv2C9a6uZmDD8cg",
-                authDomain: "mbti-28340.firebaseapp.com",
-                projectId: "mbti-28340",
-                storageBucket: "mbti-28340.firebasestorage.app",
-                messagingSenderId: "989371039709",
-                appId: "1:989371039709:web:74ce719c718ad4a5ec8034",
-                measurementId: "G-LL9LSER5V1"
-            };
-
-            const app = initializeApp(firebaseConfig);
-            const db = getFirestore(app);
-
-            async function trackVisitors() {
-                // --- Firestore 문서 참조를 미리 정의 ---
-                const totalRef = doc(db, "analytics", "totalPageViews");
-                const uniqueRef = doc(db, "analytics", "uniquePageViews");
-
-                // --- 1. 총 방문자 수(Page Views)는 항상 1 증가 ---
-                // 페이지가 로드될 때마다 실행됩니다.
-                try {
-                    await updateDoc(totalRef, { count: increment(1) });
-                } catch (error) {
-                    // 문서가 없다면 (첫 실행), 1로 생성합니다.
-                    if (error.code === 'not-found') {
-                        await setDoc(totalRef, { count: 1 });
-                    } else {
-                        console.error("Error updating total views:", error);
-                    }
-                }
-
-                // --- 2. 순 방문자 수(Unique Visitors)는 처음 방문 시에만 증가 ---
-                const hasVisited = localStorage.getItem('hasAlreadyVisited');
-                if (!hasVisited) {
-                    localStorage.setItem('hasAlreadyVisited', 'true'); // 방문 도장 찍기
-                    try {
-                        await updateDoc(uniqueRef, { count: increment(1) });
-                    } catch (error) {
-                        // 문서가 없다면 (첫 순 방문자), 1로 생성합니다.
-                        if (error.code === 'not-found') {
-                            await setDoc(uniqueRef, { count: 1 });
-                        } else {
-                            console.error("Error updating unique views:", error);
-                        }
-                    }
-                }
-
-                // --- 3. 두 데이터를 모두 가져와 화면에 표시 ---
-                try {
-                    // Promise.all을 사용해 두 데이터를 동시에 요청
-                    const [totalSnap, uniqueSnap] = await Promise.all([
-                        getDoc(totalRef),
-                        getDoc(uniqueRef)
-                    ]);
-
-                    const totalEl = document.getElementById("totalVisitorCount");
-                    const uniqueEl = document.getElementById("uniqueVisitorCount");
-
-                    if (totalEl && totalSnap.exists()) {
-                        totalEl.innerText = "지금까지 " + totalSnap.data().count + "명이 테스트에 참가했습니다.";
-                    }
-                    if (uniqueEl && uniqueSnap.exists()) {
-                        uniqueEl.innerText = "순 방문: " + uniqueSnap.data().count;
-                    }
-                } catch (error) {
-                    console.error("Error displaying counts:", error);
-                }
-            }
-
-            // 페이지 로드 시 함수 실행
-            trackVisitors();
-        </script>
-
-
-        <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" crossorigin="anonymous"></script>
-        <script>Kakao.init('9b771708b4454f04c4774684c6cfbe80');</script>
-        <script src="script.js"></script>
-
-    </body>
-
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메인 페이지</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    .btn {
+      display: block;
+      margin: 15px auto;
+      padding: 12px 20px;
+      font-size: 1.1em;
+      color: #fff;
+      background: #4CAF50;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 220px;
+      transition: background 0.3s, transform 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #45a049;
+      transform: translateY(-3px);
+    }
+    .btn.secondary {
+      background: #2196F3;
+    }
+    .btn.secondary:hover {
+      background: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>메인 페이지</h1>
+    <a href="../intro/index.html" class="btn">홈페이지로 이동</a>
+    <a href="../mbti/index.html" class="btn secondary">MBTI 테스트로 이동</a>
+  </div>
+</body>
 </html>
-

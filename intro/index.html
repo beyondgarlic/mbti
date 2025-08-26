@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Garlic | 프로젝트 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page, multi-section dashboard layout was chosen to present the project plan in a narrative, engaging way. It starts with the project's core mission, introduces the team, showcases the product "characters" interactively, details the development process visually, and presents the budget with a chart. This structure allows users to either follow the story from top to bottom or use the navigation to jump to specific areas of interest, making the information much more digestible and explorable than a static document. Key interactions include clickable character cards that open modals and an interactive budget chart. -->
+    <!-- Visualization & Content Choices: - Budget Info -> Goal: Compare -> Viz: Donut Chart -> Interaction: Hover for details -> Justification: Visually engaging way to show budget allocation. -> Library: Chart.js. - Timeline Info -> Goal: Organize/Change -> Viz: HTML/CSS Timeline -> Interaction: Highlight current stage -> Justification: Clearly shows project progress in a linear, easy-to-follow format. - Character Info -> Goal: Organize/Inform -> Viz: Interactive Card Grid -> Interaction: Click to open modal -> Justification: Allows users to explore all potential outcomes of the quiz, increasing engagement with the products. -> Method: HTML/CSS/JS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+
+        .nav-link.active,
+        .nav-link:hover {
+            color: #D97706;
+            border-bottom-color: #D97706;
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #FDBF6F;
+            border: 4px solid #FDFBF8;
+        }
+
+        .timeline-item.active::before {
+            background-color: #D97706;
+        }
+
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .emoji-img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-amber-600">Beyond Garlic</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="nav-link border-b-2 border-transparent pb-1">프로젝트 개요</a>
+                <a href="#team" class="nav-link border-b-2 border-transparent pb-1">팀 소개</a>
+                <a href="#characters" class="nav-link border-b-2 border-transparent pb-1">특산품 캐릭터</a>
+                <a href="#milestone" class="nav-link border-b-2 border-transparent pb-1">개발 마일스톤</a>
+                <a href="#budget" class="nav-link border-b-2 border-transparent pb-1">예산</a>
+                <a href="https://beyondgarlic.github.io/mbti/" class="nav-link border-b-2 border-transparent pb-1" target="_blank">MBTI 테스트</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="#overview" class="block nav-link">프로젝트 개요</a>
+            <a href="#team" class="block nav-link">팀 소개</a>
+            <a href="#characters" class="block nav-link">특산품 캐릭터</a>
+            <a href="#milestone" class="block nav-link">개발 마일스톤</a>
+            <a href="#budget" class="block nav-link">예산</a>
+            <a href="https://beyondgarlic.github.io/mbti/" class="block nav-link" target="_blank">MBTI 테스트</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="hero" class="text-center py-16">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">마늘을 넘어, 그 이상의 '의성'을 담다</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                'Beyond Garlic'은 MBTI 테스트를 통해 의성군의 숨겨진 보물 같은 특산품들을 발견할 수 있는 서비스 입니다.
+            </p>
+        </section>
+
+        <section id="overview" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-12">프로젝트 개요</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-8 rounded-xl shadow-md card">
+                    <h3 class="text-xl font-bold mb-3 text-amber-700">장기 목표</h3>
+                    <p>많은 사람들이 의성에 마늘뿐만 아니라 다른 특산품을 소비할 수 있도록 한다.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md card">
+                    <h3 class="text-xl font-bold mb-3 text-amber-700">스프린트 질문</h3>
+                    <p>의성의 다른 특산품에 대해 알고 있을까? 의성의 다른 특산품을 구매하고 싶을까?</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md card">
+                    <h3 class="text-xl font-bold mb-3 text-amber-700">한 줄 목표</h3>
+                    <p>의성에 숨겨진 다양한 특산품을 지역 외 소비자에게 소개한다.</p>
+                </div>
+            </div>
+            <div class="mt-12 bg-white p-8 rounded-xl shadow-md">
+                <h3 class="text-2xl font-bold mb-4 text-center">서비스명: <span class="text-amber-600">내 바구니를 채울 너는?! 나에게 맞는
+                        특산품 찾기</span></h3>
+                <p class="text-center text-gray-700 leading-relaxed max-w-4xl mx-auto">
+                    지역 특산품에 대한 고정관념을 깨고, 성향에 맞춰 의성군의 다채로운 특산품을 재치 있게 소개하는 MBTI 연계 테스트 서비스입니다. 사용자의 성향을 분석하여 '나에게 찰떡'인
+                    특산품을 찾아주고, 이를 통해 재미와 함께 지역 특산품에 대한 인식을 높여 구매까지 유도하는 것을 목적으로 합니다.
+                </p>
+            </div>
+        </section>
+
+        <section id="team" class="py-16 bg-amber-50 rounded-2xl">
+            <h2 class="text-3xl font-bold text-center mb-12">팀 소개</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
+                <div class="text-center">
+                    <div
+                        class="w-24 h-24 bg-amber-200 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl">
+                        🧑‍💻</div>
+                    <h4 class="font-bold">박동현</h4>
+                    <p class="text-sm text-gray-600">팀장</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-24 h-24 bg-amber-200 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl">
+                        👩‍💻</div>
+                    <h4 class="font-bold">윤가희</h4>
+                    <p class="text-sm text-gray-600">개발자(프론트엔드)</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-24 h-24 bg-amber-200 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl">
+                        👨‍💻</div>
+                    <h4 class="font-bold">오경택</h4>
+                    <p class="text-sm text-gray-600">개발자(프론트엔드)</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-24 h-24 bg-amber-200 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl">
+                        📊</div>
+                    <h4 class="font-bold">최진수</h4>
+                    <p class="text-sm text-gray-600">데이터분석가</p>
+                </div>
+                <div class="text-center col-span-2 md:col-span-1 lg:col-span-1">
+                    <div
+                        class="w-24 h-24 bg-amber-200 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl">
+                        📝</div>
+                    <h4 class="font-bold">이지혜</h4>
+                    <p class="text-sm text-gray-600">기획 & 홍보</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="characters" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-2">MBTI 특산품 캐릭터</h2>
+            <p class="text-center text-gray-600 mb-12">각 캐릭터를 클릭하여 자세한 정보를 확인해보세요.</p>
+            <div id="character-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+            </div>
+        </section>
+
+        <section id="milestone" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-12">개발 마일스톤 (7일 스프린트)</h2>
+            <div class="relative max-w-2xl mx-auto">
+                <div class="border-l-2 border-amber-200 absolute h-full top-0 left-[-20px]"></div>
+                <div id="timeline-container" class="space-y-12">
+                </div>
+            </div>
+        </section>
+
+        <section id="budget" class="py-16">
+            <h2 class="text-3xl font-bold text-center mb-12">예산 분석</h2>
+            <div class="bg-white p-8 rounded-xl shadow-md max-w-4xl mx-auto">
+                <p class="text-center text-gray-700 mb-8">
+                    프로젝트 예산은 마케팅, 도메인, 그리고 구글 워크스페이스 비용으로 구성되어 있습니다. 각 항목이 차지하는 비중을 시각적으로 확인하여 효율적인 자원 분배를 이해할 수 있습니다.
+                </p>
+                <div class="chart-container relative h-80 w-full max-w-md mx-auto">
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Beyond Garlic. All rights reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">의성의 가치를 재발견하는 프로젝트</p>
+        </div>
+    </footer>
+
+    <div id="character-modal"
+        class="modal-backdrop fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 pointer-events-none z-50">
+        <div id="modal-content"
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative transform scale-95 transition-transform duration-300">
+            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+            <div id="modal-body" class="text-center"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const characters = [
+                { mbti: 'ENTJ', product: '의성 마늘', name: '마늘 장군 \'갈릭킹\'', concept: '강인하고 카리스마 있는 리더. 겉은 단단하고 속은 깊어 조직의 맛을 책임지는 존재.', emoji: 'images/ENTJ.png' },
+                { mbti: 'ESTJ', product: '의성 마늘', name: '마늘 팀장 \'미스터 갈릭\'', concept: '체계적이고 현실적인 계획가. 어떤 요리든 정확한 맛을 내는 데 꼭 필요한 존재.', emoji: 'images/ESTJ.png' },
+                { mbti: 'ISTJ', product: '의성 마늘', name: '마늘 전문가 \'닥터 스파이시\'', concept: '원칙적이고 꼼꼼한 성격. 묵묵히 제 할 일을 완벽하게 해내는 견고한 존재.', emoji: 'images/ISTJ.png' },
+                { mbti: 'ISFJ', product: '의성 쌀', name: '든든한 \'라이스맨\'', concept: '차분하고 성실하며 모두의 일상에 없어서는 안 될 존재. 묵묵히 자리를 지키며 사람들에게 힘을 준다.', emoji: 'images/ISFJ.png' },
+                { mbti: 'ESFJ', product: '의성 쌀', name: '밥 한 그릇 \'라이시\'', concept: '따뜻하고 정이 넘치는 해결사. 사람들을 모아 즐거운 식사 자리를 만든다.', emoji: 'images/ESFJ.png' },
+                { mbti: 'INFJ', product: '의성 쌀', name: '명상하는 \'밥도사\'', concept: '신념이 확고하고 조용히 자신의 길을 가는 사색가. 깊은 맛과 향으로 사람들의 마음을 치유한다.', emoji: 'images/INFJ.png' },
+                { mbti: 'ENFP', product: '의성 자두', name: '상큼 발랄 \'플럼피\'', concept: '항상 에너지가 넘치고 밝은 매력으로 주변을 즐겁게 만든다. 달콤함으로 사람들의 마음을 사로잡는다.', emoji: 'images/ENFP.png' },
+                { mbti: 'ESFP', product: '의성 자두', name: '춤추는 \'자두몽\'', concept: '유쾌하고 즉흥적인 분위기 메이커. 언제 어디서나 모두의 시선을 끄는 매력적인 스타.', emoji: 'images/ESFP.png' },
+                { mbti: 'INFP', product: '의성 자두', name: '감성 가득 \'플럼베리\'', concept: '상상력이 풍부하고 따뜻한 감성가. 부드러운 단맛과 향으로 사람들의 마음을 위로한다.', emoji: 'images/INFP.png' },
+                { mbti: 'ENTP', product: '의성 고추', name: '핫한 아이디어 \'핫페퍼\'', concept: '재치 있고 논리적인 발명가. 틀에 박히지 않은 새로운 맛을 추구하며 도전적인 사람.', emoji: 'images/ENTP.png' },
+                { mbti: 'ESTP', product: '의성 고추', name: '열정의 \'페퍼맨\'', concept: '뜨거운 열정을 지닌 모험가. 짜릿한 경험과 자극을 즐기며 새로운 도전을 두려워하지 않는다.', emoji: 'images/ESTP.png' },
+                { mbti: 'ISTP', product: '의성 고추', name: '스파이시한 \'고추 닌자\'', concept: '조용하고 과묵하지만 뛰어난 관찰력으로 숨겨진 맛을 찾아내는 기술자.', emoji: 'images/ISTP.png' },
+                { mbti: 'INTJ', product: '의성 사과', name: '원칙주의자 \'애플 박사\'', concept: '깨끗하고 반듯한 모양처럼 정직하고 꼼꼼하다. 한 치의 오차도 없이 완벽한 맛을 만들어낸다.', emoji: 'images/INTJ.png' },
+                { mbti: 'INTP', product: '의성 사과', name: '사과 철학자 \'애플로스\'', concept: '호기심 많고 지적인 탐구자. 복잡한 맛의 조합을 분석하고 새로운 맛의 가능성을 제시한다.', emoji: 'images/INTP.png' },
+                { mbti: 'ISFP', product: '의성 사과', name: '자유로운 \'애플 듀오\'', concept: '예술적 감각이 뛰어나고 자유분방한 영혼. 달콤하고 상쾌한 맛으로 삶에 즐거움을 더한다.', emoji: 'images/ISFP.png' },
+                { mbti: 'ENFJ', product: '의성 흑마늘', name: '흑마늘 멘토 \'블랙 가이\'', concept: '카리스마 넘치고 통찰력이 뛰어난 리더. 독특한 깊은 맛처럼 시간이 지날수록 진가가 드러나는 존재.', emoji: 'images/ENFJ.png' }
+            ];
+
+            const characterGrid = document.getElementById('character-grid');
+            characters.forEach(char => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-4 rounded-xl shadow-md card cursor-pointer text-center';
+                card.innerHTML = `
+            <div class="mb-3">
+                <img src="${char.emoji}" alt="${char.name}" class="emoji-img mx-auto">
+            </div>
+            <h4 class="font-bold text-md">${char.name}</h4>
+            <p class="text-sm text-gray-500">${char.product}</p>
+            <span class="inline-block bg-amber-100 text-amber-800 text-xs font-semibold mt-2 px-2.5 py-0.5 rounded-full">${char.mbti}</span>`;
+
+                card.addEventListener('click', () => openModal(char));
+                characterGrid.appendChild(card);
+            });
+
+            const milestoneData = [
+                { day: 1, date: '8월 20일(수)', stage: '문제 정의 및 구체화', tasks: '프로젝트 목표 및 사용자 정의, 테스트 질문 및 결과 기획' },
+                { day: 2, date: '8월 21일(목)', stage: '아이디어 스케치', tasks: '와이어프레임 제작, 캐릭터 디자인 초안, UI/UX 스케치' },
+                { day: 3, date: '8월 22일(금)', stage: '의사결정 및 스토리보드', tasks: '디자인 및 기능 최종 확정, 사용자 여정(User Flow) 설계' },
+                { day: 4, date: '8월 23일(토)', stage: '프로토타입 개발 (1)', tasks: '프론트엔드 환경 구축, 기본 레이아웃 구현' },
+                { day: 5, date: '8월 24일(일)', stage: '프로토타입 개발 (2)', tasks: '테스트 기능 로직 구현, 캐릭터 및 결과 페이지 연동' },
+                { day: 6, date: '8월 25일(월)', stage: '테스트 및 개선', tasks: '내부 테스트(QA), 버그 수정, 피드백 반영' },
+                { day: 7, date: '8월 26일(화)', stage: '출시 및 운영 준비', tasks: '서버 배포, 운영/마케팅 계획 수립, 서비스 런칭' },
+                { day: 8, date: '8월 27일(수)', stage: '프로젝트 완료 및 회고', tasks: '스프린트 결과 발표, 프로젝트 회고 및 다음 단계 계획 수립' }
+            ];
+
+            const timelineContainer = document.getElementById('timeline-container');
+            const today = new Date('2025-08-21');
+
+            milestoneData.forEach(item => {
+                const itemDate = new Date(`2025-${item.date.match(/(\d+)월 (\d+)/).slice(1).join('-')}`);
+                const isActive = today.toDateString() === itemDate.toDateString();
+
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `relative pl-8 timeline-item ${isActive ? 'active' : ''}`;
+                timelineItem.innerHTML = `
+                    <p class="text-sm text-gray-500">${item.day}일차 - ${item.date}</p>
+                    <h4 class="font-bold text-lg text-amber-700">${item.stage}</h4>
+                    <p class="text-gray-600">${item.tasks}</p>
+                `;
+                timelineContainer.appendChild(timelineItem);
+            });
+
+            const budgetCtx = document.getElementById('budgetChart').getContext('2d');
+            new Chart(budgetCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['마케팅 비용 (30만원)', '도메인 비용 (2만원)', '구글 워크스페이스 및 기타 구독료 (8만원)'],
+                    datasets: [{
+                        data: [350000, 15 * 1300, 40000],
+                        backgroundColor: ['#FDBF6F', '#FDE68A', '#FB923C'],
+                        borderColor: '#FDFBF8',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans KR', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            const modal = document.getElementById('character-modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalButton = document.getElementById('close-modal-button');
+
+            function openModal(character) {
+                modalBody.innerHTML = `
+                    <div class="text-7xl mb-4">  <img src="${character.emoji}" alt="emoji" class="w-40 h-40 inline-block" /></div>
+                    <h3 class="text-2xl font-bold mb-2">${character.name}</h3>
+                    <p class="text-gray-600 mb-1">${character.product}</p>
+                    <span class="inline-block bg-amber-100 text-amber-800 text-md font-semibold mb-4 px-3 py-1 rounded-full">${character.mbti}</span>
+                    <p class="text-gray-700 leading-relaxed">${character.concept}</p>
+                `;
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+            }
+
+            function closeModal() {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.add('scale-95');
+            }
+
+            closeModalButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
